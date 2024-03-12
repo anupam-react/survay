@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const fetchApiData = async (url, token) => {
+export const fetchApiData = async (url) => {
+  let token = sessionStorage.getItem("token");
   const headers = {
     headers: {
       Authorization: "Bearer " + token,
@@ -21,7 +22,6 @@ export const createApiData = async (url, data) => {
   const headers = {
     headers: {
       Authorization: "Bearer " + token,
-      "Content-Type": "application/json",
     },
   };
   try {
@@ -38,7 +38,6 @@ export const updateApiData = async (url, data) => {
   const headers = {
     headers: {
       Authorization: "Bearer " + token,
-      "Content-Type": "application/json",
     },
   };
   try {
@@ -51,6 +50,7 @@ export const updateApiData = async (url, data) => {
 };
 
 export const deleteApiData = async (url) => {
+  let token = sessionStorage.getItem("token");
   const headers = {
     headers: {
       Authorization: "Bearer " + token,

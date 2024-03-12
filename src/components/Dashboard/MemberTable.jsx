@@ -2,12 +2,13 @@ import React, { useState } from "react";
 // import useUsers from "../../hooks/useUsers";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
+import useMemeber from "../../hooks/useMembers";
 
-const MemberList = ({ userList }) => {
+const MemberTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6);
-
-  console.log(userList)
+ 
+  const {filteredData , hendleDelete} = useMemeber()
   const navigate = useNavigate()
 
 
@@ -17,7 +18,7 @@ const MemberList = ({ userList }) => {
   // Logic to calculate the index of the first item on the current page
   const firstIndex = lastIndex - itemsPerPage;
   // Slice the data array to get the items for the current page
-//   const currentItems = userList?.slice(firstIndex, lastIndex);
+  const currentItems = filteredData?.slice(firstIndex, lastIndex);
 
   // Function to handle next page
   const nextPage = () => {
@@ -31,7 +32,7 @@ const MemberList = ({ userList }) => {
 
   return (
       <div className="border border-gray-300 p-4 rounded-2xl">
-          <p className="pb-3 font-semibold">Member list</p>
+          <p className="pb-3 text-xl font-semibold">Member list</p>
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-md text-gray-400 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -65,8 +66,8 @@ const MemberList = ({ userList }) => {
           </tr>
         </thead>
         <tbody>
-          {/* {!!currentItems?.length &&
-            currentItems?.map((data, index) => ( */}
+          {!!currentItems?.length &&
+            currentItems?.map((data, index) => ( 
               <tr
                 
                 // onClick={()=>navigate(`/users/${data?._id}`)}
@@ -74,28 +75,28 @@ const MemberList = ({ userList }) => {
               >
                 <td className="px-6 py-4 ">
                   <img
-                    src=""
+                    src={data?.image}
                     alt=""
                     className="w-10 h-10 rounded-full"
                   />
                 </td>
-                {/* <td className="px-4 py-4">{data?.panNumber}</td> */}
-                <td className="px-4 py-4">lones</td>
-                <td className="px-4 py-4">lones</td>
-                <td className="px-4 py-4">lones</td>
-                <td className="px-4 py-4">lones</td>
-                <td className="px-4 py-4">lones</td>
-                <td className="px-4 py-4">lones</td>
-                      <td className="px-4 py-4">lones</td>
+                <td className="px-4 py-4">{data?._id}</td>
+                <td className="px-4 py-4">{data?.name}</td>
+                <td className="px-4 py-4">{data?.post}</td>
+                <td className="px-4 py-4">{data?.typeOfPost}</td>
+                <td className="px-4 py-4">{data?.post}</td>
+                <td className="px-4 py-4">{data?.post}</td>
+                      <td className="px-4 py-4 text-blue-400 underline">View all</td>
                         <td className="px-6 py-4 ">
                   <img
                     src="./delete (1).svg"
                     alt=""
                     className="w-6 h-6"
+                    onClick={()=> hendleDelete(data?._id)}
                   />
                 </td>
               </tr>
-        {/* ))} */}
+         ))}
         </tbody>
       </table>
       <nav
@@ -105,15 +106,14 @@ const MemberList = ({ userList }) => {
         <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
           Showing
           <span className="font-semibold text-gray-900 dark:text-white px-1">
-          1
+          {currentPage}
           </span>
             of
           <span className="font-semibold text-gray-900 dark:text-white pl-1">
-                      {/* {Math.ceil(userList?.length/itemsPerPage)} */}
-                      10
+                      {Math.ceil(filteredData?.length/itemsPerPage)}
           </span>
         </span>
-        {/* {!!userList?.length && ( */}
+        {!!filteredData?.length && (
              <div className="pagination">
                 <button
                   onClick={prevPage}
@@ -124,16 +124,16 @@ const MemberList = ({ userList }) => {
                 </button>
                 <button
                   onClick={nextPage}
-                  disabled={lastIndex >= userList?.length}
+                  disabled={lastIndex >= filteredData?.length}
                   className="pagination__selected" 
                 >
                   <img src="fi-rr-caret-left.svg" alt="" />
                 </button>
               </div>
-        {/* )} */}
+        )}
       </nav>
     </div>
   );
 };
 
-export default MemberList;
+export default MemberTable;

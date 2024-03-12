@@ -1,7 +1,7 @@
 import React from 'react'
 import LineChart from './LineChart'
 import JobCard from './JobCard'
-import MemberList from './MemberList'
+import MemberTable from './MemberTable'
 
 const Dashboard = () => {
   return (
@@ -10,7 +10,7 @@ const Dashboard = () => {
       <LineChart />
       <JobCard />
       </div>
-      <MemberList />
+      <MemberTable />
     </div>
   )
 }
