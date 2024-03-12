@@ -47,27 +47,33 @@ const useLogin = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    // if (!email || !password) {
-    //   return errorToast("Fill all the fields");
-    // }
+    if (!email || !password) {
+      return errorToast("Fill all the fields");
+    }
 
-    // const formData = {
-    //   email,
-    //   password,
-    // };
+    const formData = {
+      email,
+      password,
+    };
+    const headers = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
     try {
-      // const response = await axios.post(
-      //   "https://blubo0qb46.execute-api.ap-south-1.amazonaws.com/dev/api/v1/admin/api/admin/login",
-      //   formData
-      // );
-      // successToast("LogIn Successfully");
-      // sessionStorage.setItem("token", response?.data?.token);
+      const response = await axios.post(
+        "https://qjb70c28zd.execute-api.ap-south-1.amazonaws.com/dev/api/v1/admin/login",
+        formData,
+        headers
+      );
+      successToast("LogIn Successfully");
+      sessionStorage.setItem("token", response?.data?.accessToken);
       navigate("/dashboard");
-      // console.log(response?.data?.token);
+      console.log(response?.data?.token);
     } catch (error) {
-      // console.log(error);
-      // errorToast("Wrong email or password");
-      // return error;
+      console.log(error);
+      errorToast("Wrong email or password");
+      return error;
     }
   };
 

@@ -41,17 +41,23 @@ const useRegister = () => {
       return errorToast("Please Agree to Privacy policy & terms");
     }
     const formData = {
-      name: userName,
+      fullName: userName,
+      mobileNumber: phone,
       email,
-      phoneNumber: phone,
       password,
     };
     console.log(formData);
+    const headers = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
     try {
       const response = await axios.post(
-        "https://blubo0qb46.execute-api.ap-south-1.amazonaws.com/dev//api/v1/admin/api/admin/register",
-        formData
+        "https://qjb70c28zd.execute-api.ap-south-1.amazonaws.com/dev/api/v1/admin/registration",
+        formData,
+        headers
       );
       successToast("Register Successfully");
       navigate("/");

@@ -4,6 +4,7 @@ export const fetchApiData = async (url, token) => {
   const headers = {
     headers: {
       Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
     },
   };
   try {
@@ -20,6 +21,7 @@ export const createApiData = async (url, data) => {
   const headers = {
     headers: {
       Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
     },
   };
   try {
@@ -36,6 +38,7 @@ export const updateApiData = async (url, data) => {
   const headers = {
     headers: {
       Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
     },
   };
   try {
@@ -48,8 +51,14 @@ export const updateApiData = async (url, data) => {
 };
 
 export const deleteApiData = async (url) => {
+  const headers = {
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
+    },
+  };
   try {
-    const response = await axios.delete(url);
+    const response = await axios.delete(url, headers);
     return response.data;
   } catch (error) {
     console.log(error);
